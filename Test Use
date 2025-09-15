@@ -1,0 +1,33 @@
+package tests;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.*;
+import pages.LoginPage;
+
+public class LoginTest {
+
+    WebDriver driver;
+    LoginPage loginPage;
+
+    @BeforeClass
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://example.com/login");
+        loginPage = new LoginPage(driver);
+    }
+
+    @Test
+    public void testValidLogin() {
+        loginPage.login("admin", "password123");
+        System.out.println("Title after login: " + driver.getTitle());
+    }
+
+    @AfterClass
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}
